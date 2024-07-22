@@ -11,7 +11,7 @@
 - mongoDB
 - ejs
 
-### Steps
+### Steps to run
 
 `npm install`
 
