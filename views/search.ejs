@@ -1,0 +1,41 @@
+<% include ./partials/header.ejs %>
+    <div class="w-full min-h-screen bg-zinc-900 px-4 py-5">
+        <div class="border-2 border-zinc-800 flex items-center justify-between px-2 py-1 rounded-md">
+            <i class="text-white ri-search-line"></i>
+            <input class="input ml-1 w-full bg-zinc-900 outline-none text-zinc-400" type="text"
+                placeholder="search username">
+        </div>
+        <div class="users">
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+    <script>
+
+        const input = document.querySelector(".input");
+
+        let clutter = "";
+        input.addEventListener("input", () => {
+            const username = input.value;
+            axios.get(`/user/username/${username}`)
+                .then(raw => raw.data.users)
+                .then((users) => {
+                    users.forEach(user => {
+                        clutter += `<a href="/user/view/${user.username}" class="outline-none">
+                    <div class="text-white flex items-center gap-2 mt-5">
+                <div class="image w-[11vw] h-[11vw] rounded-full bg-sky-100 overflow-hidden">
+                    <img src="${user.profileImage}" alt="">
+                    </div>
+                <div class="text">
+                    <h3>${user.username}</h3>
+                    <h4 class="text-xs opacity-30 leading-none">${user.name}</h4>
+                </div>
+            </div> 
+                </a>    `;
+                    });
+                })
+            document.querySelector(".users")
+                .innerHTML = clutter;
+            clutter = "";
+        });
+    </script>
+    <% include ./partials/footer.ejs %>
