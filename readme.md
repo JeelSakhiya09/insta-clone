@@ -6,7 +6,7 @@
 ## Technology used
 
 - javascript
-- ndoe.js
+- node.js
 - express
 - mongoDB
 - ejs
